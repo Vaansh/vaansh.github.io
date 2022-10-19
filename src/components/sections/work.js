@@ -54,7 +54,6 @@ const StyledContentWrapper = styled(ContentWrapper)`
     .Work {
       display: flex;
       flex-direction: row;
-      margin-top: -2.5rem;
       padding: 2.5rem 2.5rem;
       overflow-x: scroll;
       overflow-y: hidden;
@@ -165,7 +164,7 @@ const StyledProject = styled(motion.div)`
         margin-bottom: 1rem;
       }
       li {
-        margin-bottom: 0.85rem;
+        margin-bottom: 0.9rem;
       }
     }
     .links {
@@ -293,6 +292,42 @@ const Work = ({ content }) => {
                           <li key={key}>{tag}</li>
                         ))}
                       </ul>
+                    </div>
+                    <div className="links">
+                      {frontmatter.github && (
+                        <a
+                          href={frontmatter.github}
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                          aria-label="External Link"
+                        >
+                          <Icon
+                            name="github"
+                            color={
+                              darkMode
+                                ? darkTheme.colors.subtext
+                                : lightTheme.colors.subtext
+                            }
+                          />
+                        </a>
+                      )}
+                      {frontmatter.external && (
+                        <a
+                          href={frontmatter.external}
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                          aria-label="External Link"
+                        >
+                          <Icon
+                            name="external"
+                            color={
+                              darkMode
+                                ? darkTheme.colors.subtext
+                                : lightTheme.colors.subtext
+                            }
+                          />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </StyledProject>
