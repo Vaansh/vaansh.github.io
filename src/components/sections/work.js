@@ -14,7 +14,6 @@ import Button from "../../styles/button"
 import Icon from "../../components/icons"
 import { lightTheme, darkTheme } from "../../styles/theme"
 
-// TODO: Change work to tabs
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
@@ -127,13 +126,10 @@ const StyledProject = styled(motion.div)`
     max-width: 62.5rem;
     margin-bottom: 10rem;
     padding-right: 0;
-    /* Positioning of image and details should vary */
-    flex-direction: ${({ position }) =>
-      position % 2 !== 0 ? "row" : "row-reverse"};
   }
   .details {
     width: 100%;
-    max-width: 25rem;
+    max-width: 100rem;
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
@@ -143,9 +139,16 @@ const StyledProject = styled(motion.div)`
     .category {
       font-size: 0.875rem;
       line-height: 1rem;
-      text-transform: uppercase;
+      // text-transform: uppercase;
       letter-spacing: +1px;
+      .position {
+        float: left;
+      }
+      .date {
+        float: right;
+      }
     }
+
     .title {
       margin-top: 0.625rem;
       margin-bottom: 0.625rem;
@@ -156,11 +159,13 @@ const StyledProject = styled(motion.div)`
     .tags {
       display: flex;
       flex-wrap: wrap;
-      margin-top: 1.5rem;
       line-height: 1.2rem;
       span {
         margin-right: 1rem;
         margin-bottom: 1rem;
+      }
+      li {
+        margin-bottom: 0.85rem;
       }
     }
     .links {
@@ -181,21 +186,6 @@ const StyledProject = styled(motion.div)`
       svg:hover {
         fill: ${({ theme }) => theme.colors.primary};
       }
-    }
-  }
-  .screenshot {
-    width: 100%;
-    max-width: 25rem;
-    height: 15rem;
-    border-radius: ${({ theme }) => theme.borderRadius};
-    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
-    transition: all 0.3s ease-out;
-    &:hover {
-      transform: translate3d(0px, -0.125rem, 0px);
-      box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
-    }
-    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-      height: 18.75rem;
     }
   }
 `
@@ -328,64 +318,22 @@ const Work = ({ content }) => {
                   }
                 >
                   <div className="details">
-                    <div className="category">
-                      {frontmatter.emoji} {frontmatter.category}
+                    <div className="title">
+                      <a href={frontmatter.external}>{frontmatter.category}</a>
                     </div>
-                    <div className="title">{frontmatter.title}</div>
+                    <div className="category">
+                      <p className="position">{frontmatter.title}</p>
+                      <p className="date">{frontmatter.emoji}</p>
+                    </div>
                     <MDXRenderer>{body}</MDXRenderer>
                     <div className="tags">
-                      {frontmatter.tags.map(tag => (
-                        <Underlining key={tag} highlight>
-                          {tag}
-                        </Underlining>
-                      ))}
-                    </div>
-                    <div className="links">
-                      {frontmatter.github && (
-                        <a
-                          href={frontmatter.github}
-                          target="_blank"
-                          rel="nofollow noopener noreferrer"
-                          aria-label="External Link"
-                        >
-                          <Icon
-                            name="github"
-                            color={
-                              darkMode
-                                ? darkTheme.colors.subtext
-                                : lightTheme.colors.subtext
-                            }
-                          />
-                        </a>
-                      )}
-                      {frontmatter.external && (
-                        <a
-                          href={frontmatter.external}
-                          target="_blank"
-                          rel="nofollow noopener noreferrer"
-                          aria-label="External Link"
-                        >
-                          <Icon
-                            name="external"
-                            color={
-                              darkMode
-                                ? darkTheme.colors.subtext
-                                : lightTheme.colors.subtext
-                            }
-                          />
-                        </a>
-                      )}
+                      <ul>
+                        {frontmatter.tags.map((tag, key) => (
+                          <li key={key}>{tag}</li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                  {/* If image in viewport changes, update state accordingly
-                  <VisibilitySensor
-                    onChange={() => setVisibleProject(frontmatter.position)}
-                  >
-                    <Img
-                      className="screenshot"
-                      fluid={frontmatter.screenshot.childImageSharp.fluid}
-                    />
-                  </VisibilitySensor> */}
                 </StyledProject>
               </VisibilitySensor>
             )
