@@ -12,6 +12,7 @@ import Interests from "../components/sections/interests"
 import Projects from "../components/sections/projects"
 import Contact from "../components/sections/contact"
 import { seoTitleSuffix } from "../../config"
+import Work from "../components/sections/work"
 
 const IndexPage = ({ data }) => {
   const { frontmatter } = data.index.edges[0].node
@@ -37,10 +38,11 @@ const IndexPage = ({ data }) => {
         />
         <Hero content={data.hero.edges} />
         {/* Articles is populated via Medium RSS Feed fetch */}
+        <Articles />
         <About content={data.about.edges} />
         <Interests content={data.interests.edges} />
+        <Work content={data.work.edges} />
         <Projects content={data.projects.edges} />
-        <Articles />
         <Contact content={data.contact.edges} />
       </Layout>
     </GlobalStateProvider>
@@ -123,6 +125,38 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
+          }
+        }
+      }
+    }
+    work: allMdx(
+      filter: {
+        fileAbsolutePath: { regex: "/index/work/" }
+        frontmatter: { visible: { eq: true } }
+      }
+      sort: { fields: [frontmatter___position], order: ASC }
+    ) {
+      edges {
+        node {
+          body
+          frontmatter {
+            title
+            category
+            emoji
+            external
+            github
+            screenshot {
+              childImageSharp {
+                fluid(maxWidth: 400, quality: 90) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+            tags
+            position
+            buttonVisible
+            buttonUrl
+            buttonText
           }
         }
       }

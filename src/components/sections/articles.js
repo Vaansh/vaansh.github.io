@@ -129,15 +129,9 @@ const Articles = () => {
           y: 0,
           transition: { delay: 1 },
         })
-        fetch(mediumRssFeed, { headers: { Accept: "application/json" } })
-          // fetch(rssFeed, { headers: { Accept: "application/json" } })
-          .then(res => res.json())
-          // Feed also contains comments, therefore we filter for articles only
-          .then(data => data.items.filter(item => item.categories.length > 0))
-          // .then(data => data.items.filter(item => item.title.length > 0))
-          .then(newArticles => newArticles.slice(0, MAX_ARTICLES))
-          .then(articles => setArticles(articles))
-          .catch(error => console.log(error))
+
+        // var json = require("../../../content/index/articles.json")
+        // setArticles(json.items)
       }
     }
     loadArticles()
@@ -154,6 +148,7 @@ const Articles = () => {
         <div className="articles">
           {articles
             ? articles.map(item => (
+                // <img src="https://i.imgur.com/b8paa0v_d.webp?maxwidth=520&shape=thumb&fidelity=high">
                 <a
                   href={item.link}
                   target="_blank"
