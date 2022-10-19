@@ -14,6 +14,7 @@ import Button from "../../styles/button"
 import Icon from "../../components/icons"
 import { lightTheme, darkTheme } from "../../styles/theme"
 
+// TODO: Change work to tabs
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
@@ -198,6 +199,45 @@ const StyledProject = styled(motion.div)`
     }
   }
 `
+const StyledTabList = styled.div`
+  position: relative;
+  z-index: 3;
+  width: max-content;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  @media (max-width: 600px) {
+    display: flex;
+    overflow-x: auto;
+    width: calc(100% + 100px);
+    padding-left: 50px;
+    margin-left: -50px;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 480px) {
+    width: calc(100% + 50px);
+    padding-left: 25px;
+    margin-left: -25px;
+  }
+  li {
+    &:first-of-type {
+      @media (max-width: 600px) {
+        margin-left: 50px;
+      }
+      @media (max-width: 480px) {
+        margin-left: 25px;
+      }
+    }
+    &:last-of-type {
+      @media (max-width: 600px) {
+        padding-right: 50px;
+      }
+      @media (max-width: 480px) {
+        padding-right: 25px;
+      }
+    }
+  }
+`
 
 const Work = ({ content }) => {
   const { darkMode } = useContext(Context).state
@@ -253,6 +293,9 @@ const Work = ({ content }) => {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   }
+
+  const tabs = useRef([])
+  const [activeTabId, setActiveTabId] = useState(0)
 
   return (
     <StyledSection id="Work">
@@ -334,7 +377,7 @@ const Work = ({ content }) => {
                       )}
                     </div>
                   </div>
-                  {/* If image in viewport changes, update state accordingly */}
+                  {/* If image in viewport changes, update state accordingly
                   <VisibilitySensor
                     onChange={() => setVisibleProject(frontmatter.position)}
                   >
@@ -342,29 +385,13 @@ const Work = ({ content }) => {
                       className="screenshot"
                       fluid={frontmatter.screenshot.childImageSharp.fluid}
                     />
-                  </VisibilitySensor>
+                  </VisibilitySensor> */}
                 </StyledProject>
               </VisibilitySensor>
             )
           })}
         </div>
       </StyledContentWrapper>
-      {sectionDetails.frontmatter.buttonVisible && (
-        <motion.a
-          ref={bRef}
-          variants={bVariants}
-          animate={bOnScreen ? "visible" : "hidden"}
-          className="cta-btn"
-          href={sectionDetails.frontmatter.buttonUrl}
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-          aria-label="External Link"
-        >
-          <Button type="button" textAlign="center" center>
-            {sectionDetails.frontmatter.buttonText}
-          </Button>
-        </motion.a>
-      )}
     </StyledSection>
   )
 }

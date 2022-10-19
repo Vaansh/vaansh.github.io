@@ -113,6 +113,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
   }
 `
 
+// TODO: replace with dev news or something else
 const Articles = () => {
   const MAX_ARTICLES = shownArticles
 
