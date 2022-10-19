@@ -1,16 +1,16 @@
 module.exports = {
   //-- SITE SETTINGS -----
-  author: "@konstantinmuenster",
-  siteTitle: "Konstantin Münster Portfolio",
-  siteShortTitle: "km.", // Used as logo text in header, footer, and splash screen
+  author: "@vaanshlakhwara",
+  siteTitle: "Vaansh Lakhwara Portfolio",
+  siteShortTitle: "vl.", // Used as logo text in header, footer, and splash screen
   siteDescription:
-    "Hi there! I'm Konstantin Münster, a product manager and freelance web developer based in Hamburg.",
-  siteUrl: "https://konstantin.digital",
+    "Hi there! I'm Vaansh Lakhwara, a student and software developer based in Canada.",
+  siteUrl: "https://vaansh.dev",
   siteLanguage: "en_US",
   siteIcon: "content/favicon.png", // Relative to gatsby-config file
-  seoTitleSuffix: "Konstantin Münster", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
+  seoTitleSuffix: "Vaansh Lakhwara", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
   useCookieBar: true, // If you use Google Analytics and want to be GDPR-compliant, set it to true
-  googleAnalyticsTrackingId: "UA-157258742-1", // e.g. UA-XXXXXX-X
+  // googleAnalyticsTrackingId: "UA-157258742-1", // e.g. UA-XXXXXX-X
 
   // -- THEME SETTINGS -----
   colors: {
@@ -60,24 +60,16 @@ module.exports = {
     // },
     {
       name: "Linkedin",
-      url: "https://www.linkedin.com/in/konstantin-muenster/",
-    },
-    {
-      name: "Medium",
-      url: "https://konstantinmuenster.medium.com/",
+      url: "https://www.linkedin.com/in/vaansh/",
     },
     {
       name: "Github",
-      url: "https://github.com/konstantinmuenster",
+      url: "https://github.com/Vaansh",
     },
     {
       name: "Mail",
-      url: "mailto:mail@konstantin.digital",
+      url: "mailto:vaansh.lakhwara@mail.concordia.ca",
     },
-    // {
-    //     name: "Behance",
-    //     url: "https://www.behance.net/konstanmnster"
-    // },
   ],
 
   //-- NAVIGATION SETTINGS -----
@@ -108,9 +100,9 @@ module.exports = {
       name: "Privacy",
       url: "/privacy",
     },
-    {
-      name: "Imprint",
-      url: "/imprint",
-    },
+    // {
+    //   name: "Imprint",
+    //   url: "/imprint",
+    // },
   ],
 }
