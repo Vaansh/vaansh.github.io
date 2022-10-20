@@ -84,15 +84,23 @@ module.exports = {
         url: "/#about",
       },
       {
+        name: "Work",
+        url: "/#work",
+      },
+      {
         name: "Projects",
         url: "/#projects",
       },
+      {
+        name: "Contact",
+        url: "/#contact",
+      },
     ],
     button: {
-      useFileName: false,
-      name: "Contact",
-      fileName: "", // the file has to be placed inside the static folder at the root level
-      url: "/#contact", // if useFileName=false, you can set an anchor link here and use the button for navigational purposes
+      useFileName: true,
+      name: "Resume",
+      fileName: "resume.pdf",
+      url: "",
     },
   },
   footerLinks: [

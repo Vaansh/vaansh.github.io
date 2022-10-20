@@ -51,9 +51,10 @@ const StyledContentWrapper = styled(ContentWrapper)`
         padding-left: 0;
       }
     }
-    .Work {
+    .projects {
       display: flex;
       flex-direction: row;
+      margin-top: -2.5rem;
       padding: 2.5rem 2.5rem;
       overflow-x: scroll;
       overflow-y: hidden;
@@ -125,10 +126,13 @@ const StyledProject = styled(motion.div)`
     max-width: 62.5rem;
     margin-bottom: 10rem;
     padding-right: 0;
+    /* Positioning of image and details should vary */
+    flex-direction: ${({ position }) =>
+      position % 2 !== 0 ? "row" : "row-reverse"};
   }
   .details {
     width: 100%;
-    max-width: 100rem;
+    max-width: 25rem;
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
@@ -138,16 +142,9 @@ const StyledProject = styled(motion.div)`
     .category {
       font-size: 0.875rem;
       line-height: 1rem;
-      // text-transform: uppercase;
+      text-transform: uppercase;
       letter-spacing: +1px;
-      .position {
-        float: left;
-      }
-      .date {
-        float: right;
-      }
     }
-
     .title {
       margin-top: 0.625rem;
       margin-bottom: 0.625rem;
@@ -158,13 +155,11 @@ const StyledProject = styled(motion.div)`
     .tags {
       display: flex;
       flex-wrap: wrap;
+      margin-top: 1.5rem;
       line-height: 1.2rem;
       span {
         margin-right: 1rem;
         margin-bottom: 1rem;
-      }
-      li {
-        margin-bottom: 0.9rem;
       }
     }
     .links {
@@ -187,18 +182,33 @@ const StyledProject = styled(motion.div)`
       }
     }
   }
+  .screenshot {
+    width: 100%;
+    max-width: 25rem;
+    height: 15rem;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
+    transition: all 0.3s ease-out;
+    &:hover {
+      transform: translate3d(0px, -0.125rem, 0px);
+      box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
+    }
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      height: 18.75rem;
+    }
+  }
 `
 
 const Work = ({ content }) => {
   const { darkMode } = useContext(Context).state
   const sectionDetails = content[0].node
-  const Work = content.slice(1, content.length)
+  const projects = content.slice(1, content.length)
 
-  // visibleProject is needed to show which work is currently
+  // visibleProject is needed to show which project is currently
   // being viewed in the horizontal slider on mobile and tablet
   const [visibleProject, setVisibleProject] = useState(1)
 
-  // Work don't track the visibility by using the onScreen hook
+  // projects don't track the visibility by using the onScreen hook
   // instead they use react-visibility-sensor, therefore their visibility
   // is also stored differently
   const [onScreen, setOnScreen] = useState({})
@@ -215,14 +225,14 @@ const Work = ({ content }) => {
   }
 
   useEffect(() => {
-    // mobile and tablet only: set first work as visible in the
+    // mobile and tablet only: set first project as visible in the
     // horizontal slider
     setVisibleProject(1)
-    // required for animations: set visibility for all Work to
+    // required for animations: set visibility for all projects to
     // "false" initially
     let initial = {}
-    Work.forEach(work => {
-      initial[work.node.frontmatter.position] = false
+    projects.forEach(project => {
+      initial[project.node.frontmatter.position] = false
     })
     setOnScreen(initial)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -244,11 +254,8 @@ const Work = ({ content }) => {
     visible: { opacity: 1 },
   }
 
-  const tabs = useRef([])
-  const [activeTabId, setActiveTabId] = useState(0)
-
   return (
-    <StyledSection id="Work">
+    <StyledSection id="work">
       <StyledContentWrapper>
         <motion.div
           ref={tRef}
@@ -257,12 +264,12 @@ const Work = ({ content }) => {
         >
           <h3 className="section-title">{sectionDetails.frontmatter.title}</h3>
           <div className="counter">
-            {visibleProject} / {Work.length}
+            {visibleProject} / {projects.length}
           </div>
         </motion.div>
-        <div className="Work">
-          {Work.map((work, key) => {
-            const { body, frontmatter } = work.node
+        <div className="projects">
+          {projects.map((project, key) => {
+            const { body, frontmatter } = project.node
             return (
               <VisibilitySensor
                 key={key}
@@ -278,20 +285,17 @@ const Work = ({ content }) => {
                   }
                 >
                   <div className="details">
-                    <div className="title">
-                      <a href={frontmatter.external}>{frontmatter.category}</a>
-                    </div>
                     <div className="category">
-                      <p className="position">{frontmatter.title}</p>
-                      <p className="date">{frontmatter.emoji}</p>
+                      {frontmatter.emoji} {frontmatter.category}
                     </div>
+                    <div className="title">{frontmatter.title}</div>
                     <MDXRenderer>{body}</MDXRenderer>
                     <div className="tags">
-                      <ul>
-                        {frontmatter.tags.map((tag, key) => (
-                          <li key={key}>{tag}</li>
-                        ))}
-                      </ul>
+                      {frontmatter.tags.map(tag => (
+                        <Underlining key={tag} highlight>
+                          {tag}
+                        </Underlining>
+                      ))}
                     </div>
                     <div className="links">
                       {frontmatter.github && (
@@ -330,12 +334,37 @@ const Work = ({ content }) => {
                       )}
                     </div>
                   </div>
+                  {/* If image in viewport changes, update state accordingly */}
+                  <VisibilitySensor
+                    onChange={() => setVisibleProject(frontmatter.position)}
+                  >
+                    <Img
+                      className="screenshot"
+                      fluid={frontmatter.screenshot.childImageSharp.fluid}
+                    />
+                  </VisibilitySensor>
                 </StyledProject>
               </VisibilitySensor>
             )
           })}
         </div>
       </StyledContentWrapper>
+      {sectionDetails.frontmatter.buttonVisible && (
+        <motion.a
+          ref={bRef}
+          variants={bVariants}
+          animate={bOnScreen ? "visible" : "hidden"}
+          className="cta-btn"
+          href={sectionDetails.frontmatter.buttonUrl}
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          aria-label="External Link"
+        >
+          <Button type="button" textAlign="center" center>
+            {sectionDetails.frontmatter.buttonText}
+          </Button>
+        </motion.a>
+      )}
     </StyledSection>
   )
 }
