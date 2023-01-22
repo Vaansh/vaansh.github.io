@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://vaansh.dev/sitemap.xml
+Host: https://vaansh.dev
