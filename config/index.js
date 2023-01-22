@@ -10,7 +10,7 @@ module.exports = {
   siteIcon: "content/favicon.png", // Relative to gatsby-config file
   seoTitleSuffix: "Vaansh Lakhwara", // SEO title syntax will be e.g. "Imprint - {seoTitleSuffix}"
   useCookieBar: true, // If you use Google Analytics and want to be GDPR-compliant, set it to true
-  // googleAnalyticsTrackingId: "UA-157258742-1", // e.g. UA-XXXXXX-X
+  googleAnalyticsTrackingId: "UA-254798345-1",
 
   // -- THEME SETTINGS -----
   colors: {
