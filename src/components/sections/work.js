@@ -105,7 +105,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
   }
 `
 
-const StyledProject = styled(motion.div)`
+const StyledWork = styled(motion.div)`
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-end;
@@ -206,7 +206,7 @@ const Work = ({ content }) => {
 
   // visibleProject is needed to show which project is currently
   // being viewed in the horizontal slider on mobile and tablet
-  const [visibleProject, setVisibleProject] = useState(1)
+  const [visibleProject, setVisibleWork] = useState(1)
 
   // projects don't track the visibility by using the onScreen hook
   // instead they use react-visibility-sensor, therefore their visibility
@@ -227,7 +227,7 @@ const Work = ({ content }) => {
   useEffect(() => {
     // mobile and tablet only: set first project as visible in the
     // horizontal slider
-    setVisibleProject(1)
+    setVisibleWork(1)
     // required for animations: set visibility for all projects to
     // "false" initially
     let initial = {}
@@ -277,7 +277,7 @@ const Work = ({ content }) => {
                 partialVisibility={true}
                 minTopValue={100}
               >
-                <StyledProject
+                <StyledWork
                   position={key + 1}
                   variants={pVariants}
                   animate={
@@ -336,14 +336,14 @@ const Work = ({ content }) => {
                   </div>
                   {/* If image in viewport changes, update state accordingly */}
                   <VisibilitySensor
-                    onChange={() => setVisibleProject(frontmatter.position)}
+                    onChange={() => setVisibleWork(frontmatter.position)}
                   >
                     <Img
                       className="screenshot"
                       fluid={frontmatter.screenshot.childImageSharp.fluid}
                     />
                   </VisibilitySensor>
-                </StyledProject>
+                </StyledWork>
               </VisibilitySensor>
             )
           })}
