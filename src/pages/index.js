@@ -6,10 +6,8 @@ import GlobalStateProvider from "../context/provider"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Hero from "../components/sections/hero"
-import Articles from "../components/sections/articles"
 import About from "../components/sections/about"
 import Interests from "../components/sections/interests"
-import Projects from "../components/sections/projects"
 import Contact from "../components/sections/contact"
 import { seoTitleSuffix } from "../../config"
 import Work from "../components/sections/work"
@@ -19,10 +17,7 @@ const IndexPage = ({ data }) => {
   const { seoTitle, useSeoTitleSuffix, useSplashScreen } = frontmatter
 
   const globalState = {
-    // if useSplashScreen=false, we skip the intro by setting isIntroDone=true
     isIntroDone: useSplashScreen ? false : true,
-    // darkMode is initially disabled, a hook inside the Layout component
-    // will check the user's preferences and switch to dark mode if needed
     darkMode: false,
   }
 
