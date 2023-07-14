@@ -2,7 +2,7 @@ module.exports = {
   //-- SITE SETTINGS -----
   author: "@vaanshlakhwara",
   siteTitle: "Vaansh Lakhwara Portfolio",
-  siteShortTitle: "vl.", // Used as logo text in header, footer, and splash screen
+  siteShortTitle: "vl.",
   siteDescription:
     "Hi there! I'm Vaansh Lakhwara, a student and software developer based in Canada.",
   siteUrl: "https://vaansh.dev",
