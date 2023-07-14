@@ -81,6 +81,7 @@ export const pageQuery = graphql`
         }
       }
     }
+
     about: allMdx(filter: { fileAbsolutePath: { regex: "/index/about/" } }) {
       edges {
         node {
@@ -98,6 +99,7 @@ export const pageQuery = graphql`
         }
       }
     }
+
     interests: allMdx(
       filter: { fileAbsolutePath: { regex: "/index/interests/" } }
     ) {
@@ -122,6 +124,7 @@ export const pageQuery = graphql`
         }
       }
     }
+
     work: allMdx(
       filter: {
         fileAbsolutePath: { regex: "/index/work/" }
@@ -154,6 +157,7 @@ export const pageQuery = graphql`
         }
       }
     }
+    
     projects: allMdx(
       filter: {
         fileAbsolutePath: { regex: "/index/projects/" }
@@ -186,6 +190,7 @@ export const pageQuery = graphql`
         }
       }
     }
+    
     contact: allMdx(
       filter: { fileAbsolutePath: { regex: "/index/contact/" } }
     ) {
